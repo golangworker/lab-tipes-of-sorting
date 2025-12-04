@@ -49,21 +49,21 @@ def bubble_sort(arr):
 
 
 # 2) Улучшенная пузырьковая сортировка
-# работает как и 1), но в каждом проходе уменьшаем кол-во итерации
+# работает как и 1), но в каждом проходе уменьшаем кол-во проходов на i
 # т.к. за 1 итерацию мы всегда перетаскиваем самое большое значение в конец слайса
 def improved_bubble_sort(arr):
     name = "Improved bubble sorting"
     swaps, comps = 0, 0
-    for i in range(len(arr)-1):
+    change=True
+    while change:
         changes = False
-        for j in range(len(arr)-i-1):
+        for j in range(len(arr)-1):
             comps += 1
             if arr[j] > arr[j+1]:
                 arr[j], arr[j+1] = arr[j+1], arr[j]
                 swaps += 1
                 changes = True
-        if not changes:
-            break
+
 
     return name, arr, swaps, comps
 
@@ -73,37 +73,30 @@ def improved_bubble_sort(arr):
 def shaker_sort(arr):
     name = "Shaker sorting"
     swaps, comps = 0, 0
-
+    k = len(arr)-1
     left = 0
-    right = len(arr)-1
+    right = k
 
 
     while left < right:
-        changes = False
         # туда
         for j in range(left, right):
             comps += 1
             if arr[j] > arr[j+1]:
                 arr[j], arr[j+1] = arr[j+1], arr[j]
                 swaps += 1
-                changes = True
-        right -= 1
+                k=j
+        right = k
 
-        if not changes:
-            break
-
-        changes = False
         # Обратно
         for j in range(right, left, -1):
             comps += 1
             if arr[j] < arr[j-1]:
                 arr[j], arr[j-1] = arr[j-1], arr[j]
                 swaps += 1
-                changes = True
-        left += 1
+                k=j
+        left = k
 
-        if not changes:
-            break
 
     return name, arr, swaps, comps
 
@@ -202,7 +195,7 @@ def select_sort(arr):
 
     for i in range(len(arr)-1):
         min_index = i
-        for j in range(i+1, len(arr)):
+        for j in range(1, len(arr)):
             comps += 1
             if arr[j] < arr[min_index]:
                 min_index = j

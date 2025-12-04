@@ -5,13 +5,13 @@ import "fmt"
 func InsertionSort(arr []int) []int {
 	fmt.Println("Insertion sorting")
 	for i := 1; i < len(arr); i++ {
-		hole := arr[i]
-		indx := i
-		for indx > 0 && hole < arr[indx-1] {
-			arr[indx] = arr[indx-1]
-			indx--
+		tmp := arr[i]
+		hole := i
+		for hole > 0 && tmp < arr[hole-1] {
+			arr[hole] = arr[hole-1]
+			hole--
 		}
-		arr[indx] = hole
+		arr[hole] = tmp
 	}
 	return arr
 }
